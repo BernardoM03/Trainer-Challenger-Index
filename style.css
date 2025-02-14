@@ -1,0 +1,96 @@
+/* CSS Document */
+button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: red;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.button:hover {
+    background-color: black;
+}
+
+.table_button {
+    display: inline-block;
+    padding: 5px 5px;
+    background-color: red;
+    color: white;
+    border-radius: 2px;
+}
+
+.table_button:hover {
+    background-color: black;
+}
+
+#trainerForm {
+    display: none;
+    margin: 20px auto;
+    padding: 15px;
+    width: 300px;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+    text-align: left;
+}
+
+#pokemonForm {
+    display: none;
+    margin: 20px auto;
+    padding: 15px;
+    width: 300px;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+    text-align: left;
+}
+
+#gymForm {
+    display: none;
+    margin: 20px auto;
+    padding: 15px;
+    width: 300px;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+    text-align: left;
+}
+
+#regionForm {
+display: none;
+margin: 20px auto;
+padding: 15px;
+width: 300px;
+border: 1px solid #ccc;
+background-color: #f9f9f9;
+text-align: left;
+}
+
+#trainerGymsForm {
+display: none;
+margin: 20px auto;
+padding: 15px;
+width: 300px;
+border: 1px solid #ccc;
+background-color: #f9f9f9;
+text-align: left;
+}
+
+label {
+    font-weight: bold;
+}
+
+input, select {
+    width: 100%;
+    padding: 5px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+}
+
+form button {
+    width: 100%;
+    background-color: red;
+}
+
+form button:hover {
+    background-color: black;
+}
+

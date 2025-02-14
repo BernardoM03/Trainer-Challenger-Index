@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,
+                                   initial-scale=1.0">
+    <title>TrainerGyms</title>
+
+    <!-- To link external styling file -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Hidden table for entering new data -->
+    <script>
+      function showForm() {
+        document.getElementById("trainerGymsForm").style.display = "block";
+      }
+      function submitTrainerGym() {
+        let name    = document.getElementById("name").value;
+        let gym     = document.getElementById("gym").value;
+        let trainer = document.getElementById("trainer").value;
+        let date    = document.getElementById("date").value;
+
+        if (name && gym && trainer && date) {
+          alert(`Trainer Added:\nName: ${name}\ngym: ${gym}\nTrainer: ${trainer}\nDate: ${date}`);
+          document.getElementById("trainerGymsForm").style.display = "none";
+        } else {
+          alert("Please fill in all fields.");
+        }
+      }
+    </script>
+</head>
+
+<body>
+    <header>
+        <h1>Trainer Gym Record</h1>
+        <nav>
+          <ul>
+            <li><a href="trainers.html">Trainers</a></li>
+            <li><a href="pokemon.html">Pokemon</a></li>
+            <li><a href="Gyms.html">Gyms</a></li>
+            <li><a href="regions.html">Regions</a></li>
+            <li><a href="trainerGyms.html">TrainerGyms</a></li>
+          </ul>
+        </nav>
+    </header>
+    <main>
+        <p><strong>Browse Trainer Gym Badge Records</strong></p>
+
+        <button type="button" onclick="showForm()">Add New Badge Record</button>
+
+        <form id="trainerGymsForm">
+          <label for="name">Badge Name:</label>
+          <input type="text" id="name" required><br><br>
+
+          <label for="gym">Gym:</label>
+          <input type="text" id="gym" required><br><br>
+
+          <label for="trainer">Trainer:</label>
+          <input type="text" id="trainer" required><br><br>
+
+          <label for="date">Date Earned:</label>
+          <input type="date" id="date" required><br><br>
+
+        <button type="button" onclick="submitTrainerGym()">Submit</button>
+        </form>
+
+        <table border="1" cellpadding="5">
+
+            <tr>
+                <th>Badge Name</th>
+                <th>Gym</th>
+                <th>Trainer</th>
+                <th>Date Earned</th>
+            </tr>
+            <tr>
+                <td align="left" >Thunder Badge</td>
+                <td>Vermillion Gym</td>
+                <td>Ash Ketchum</td>
+                <td>1997-07-01</td>
+                <td><a href="update_gym.html" class="table_button">Update</a></td>
+                <td><a href="delete_gym.html" class="table_button">Delete</a></td>
+            </tr>
+            </tr>
+            <tr>
+                <td align="left" >Fen Badge</td>
+                <td>Pastoria Gym</td>
+                <td>Ash Ketchum</td>
+                <td>2008-06-19</td>
+                <td><a href="update_gym.html" class="table_button">Update</a></td>
+                <td><a href="delete_gym.html" class="table_button">Delete</a></td>
+            </tr>
+            </tr>
+            <tr>
+                <td align="left" >Rumble Badge</td>
+                <td>Shalour Gym</td>
+                <td>Ash Ketchum</td>
+                <td>2014-09-25</td>
+                <td><a href="update_gym.html" class="table_button">Update</a></td>
+                <td><a href="delete_gym.html" class="table_button">Delete</a></td>
+            </tr>
+        </table>
+    </main>
+    <footer>
+        <p>&copy; 2025 Trainer Challenge Index. All rights reserved.</p>
+    </footer>
+    <!-- To link external javascript file -->
+    <script src="scripts.js"></script>
+</body>
+
+</html>

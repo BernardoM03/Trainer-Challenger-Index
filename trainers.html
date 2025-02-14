@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,
+                                   initial-scale=1.0">
+    <title>Trainers</title>
+
+    <!-- To link external styling file -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Hidden table for entering new data -->
+    <script>
+      function showForm() {
+        document.getElementById("trainerForm").style.display = "block";
+      }
+      function submitTrainer() {
+        let name   = document.getElementById("name").value;
+        let age    = document.getElementById("age").value;
+        let region = document.getElementById("region").value;
+
+        if (name && age && region) {
+          alert(`Trainer Added:\nName: ${name}\nAge: ${age}\nRegion: ${region}`);
+          document.getElementById("trainerForm").style.display = "none";
+        } else {
+          alert("Please fill in all fields.");
+        }
+      }
+    </script>
+</head>
+
+<body>
+    <header>
+        <h1>Trainers</h1>
+        <nav>
+          <ul>
+            <li><a href="trainers.html">Trainers</a></li>
+            <li><a href="pokemon.html">Pokemon</a></li>
+            <li><a href="Gyms.html">Gyms</a></li>
+            <li><a href="regions.html">Regions</a></li>
+            <li><a href="trainerGyms.html">TrainerGyms</a></li>
+          </ul>
+        </nav>
+    </header>
+    <main>
+        <p><strong>Browse Trainers</strong></p>
+
+        <button type="button" onclick="showForm()">Add New Trainer</button>
+
+        <form id="trainerForm">
+          <label for="name">Name:</label>
+          <input type="text" id="name" required><br><br>
+
+          <label for="age">Age:</label>
+          <input type="number" id="age" required><br><br>
+
+          <label for="region">Home Region:</label>
+            <select id="region" required>
+                <option value="">Select Region</option>
+                <option value="Kanto">Kanto</option>
+                <option value="Johto">Johto</option>
+                <option value="Hoenn">Hoenn</option>
+                <option value="Sinnoh">Sinnoh</option>
+                <option value="Unova">Unova</option>
+                <option value="Kalos">Kalos</option>
+                <option value="Alola">Alola</option>
+                <option value="Galar">Galar</option>
+                <option value="Paldea">Paldea</option>
+            </select><br><br>
+
+        <button type="button" onclick="submitTrainer()">Submit</button>
+        </form>
+
+        <table border="1" cellpadding="5">
+
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Home Region</th>
+            </tr>
+            <tr>
+                <td align="left" >1</td>
+                <td>Ash Ketchum</td>
+                <td>10</td>
+                <td>Kanto</td>
+                <td><a href="update_gym.html" class="table_button">Update</a></td>
+                <td><a href="delete_gym.html" class="table_button">Delete</a></td>
+            </tr>
+            <tr>
+                <td align="left" >2</td>
+                <td>Gary Oak</td>
+                <td>10</td>
+                <td>Kanto</td>
+                <td><a href="update_gym.html" class="table_button">Update</a></td>
+                <td><a href="delete_gym.html" class="table_button">Delete</a></td>
+            </tr>
+            <tr>
+                <td align="left" >3</td>
+                <td>Dawn</td>
+                <td>10</td>
+                <td>Sinnoh</td>
+                <td><a href="update_gym.html" class="table_button">Update</a></td>
+                <td><a href="delete_gym.html" class="table_button">Delete</a></td>
+            </tr>
+            <tr>
+                <td align="left" >3</td>
+                <td>Alain</td>
+                <td></td>
+                <td>Kalos</td>
+                <td><a href="update_gym.html" class="table_button">Update</a></td>
+                <td><a href="delete_gym.html" class="table_button">Delete</a></td>
+            </tr>
+        </table>
+    </main>
+    <footer>
+        <p>&copy; 2025 Trainer Challenge Index. All rights reserved.</p>
+    </footer>
+    <!-- To link external javascript file -->
+    <script src="scripts.js"></script>
+</body>
+
+</html>
