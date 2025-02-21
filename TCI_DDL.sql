@@ -42,7 +42,7 @@ CREATE TABLE Trainers (
   trainer_id int(11) NOT NULL AUTO_INCREMENT,
   name varchar(45) NOT NULL,
   age int(11) DEFAULT NULL,
-  region_id int(11) NOT NULL,
+  region_id int(11),
   PRIMARY KEY (trainer_id),
   FOREIGN KEY (region_id) REFERENCES Regions(region_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
@@ -67,7 +67,7 @@ CREATE TABLE Pokemon (
   pokemon_id int(11) NOT NULL AUTO_INCREMENT,
   name varchar(45) NOT NULL,
   type varchar(45) NOT NULL,
-  region_id int(11) NOT NULL,
+  region_id int(11),
   trainer_id int(11) NOT NULL,
   PRIMARY KEY (pokemon_id),
   FOREIGN KEY (region_id) REFERENCES Regions(region_id) ON DELETE CASCADE ON UPDATE CASCADE,
