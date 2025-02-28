@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,
+                                   initial-scale=1.0">
+    <title>Regions</title>
+
+    <!-- To link external styling file -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- Hidden table for entering new data -->
+    <script>
+      function showForm() {
+        document.getElementById("regionForm").style.display = "block";
+      }
+      function submitRegion() {
+        let name   = document.getElementById("name").value;
+
+        if (name) {
+          alert(`Region Added:\nName: ${name}`);
+          document.getElementById("regionForm").style.display = "none";
+        } else {
+          alert("Please fill in all fields.");
+        }
+      }
+    </script>
+</head>
+
+<body>
+    <header>
+        <h1>Trainers</h1>
+        <nav>
+          <ul>
+            <li><a href="/trainers">Trainers</a></li>
+            <li><a href="/pokemon">Pokemon</a></li>
+            <li><a href="/gyms">Gyms</a></li>
+            <li><a href="/regions">Regions</a></li>
+            <li><a href="/trainerGyms">TrainerGyms</a></li>
+          </ul>
+        </nav>
+    </header>
+    <main>
+        <p><strong>Browse Trainers</strong></p>
+
+        <button type="button" onclick="showForm()">Add New Region</button>
+
+        <form id="regionForm">
+          <label for="name">Name:</label>
+          <input type="text" id="name" required><br><br>
+
+        <button type="button" onclick="submitRegion()">Submit</button>
+        </form>
+
+        <table border="1" cellpadding="5">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+                {{!-- For each row, print the id, name, age, region_id, in order --}}
+                {{#each data}}
+                <tr>
+                    <td>{{this.name}}</td>
+
+                    <td>
+                        <a href="/update_regions/{{this.trainer_id}}" class="table_button">Update</a>
+                        <a href="/delete_regions/{{this.trainer_id}}" class="table_button">Delete</a>
+                    </td>
+                </tr>
+                {{/each}}
+            </tbody>
+            
+        </table>
+    </main>
+    <footer>
+        <p>&copy; 2025 Trainer Challenge Index. All rights reserved.</p>
+    </footer>
+    <!-- To link external javascript file -->
+    <script src="scripts.js"></script>
+</body>
+
+</html>

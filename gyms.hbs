@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,
+                                   initial-scale=1.0">
+    <title>Gyms</title>
+
+    <!-- To link external styling file -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- Hidden table for entering new data -->
+    <script>
+      function showForm() {
+        document.getElementById("gymForm").style.display = "block";
+      }
+      function submitGym() {
+        let name   = document.getElementById("name").value;
+        let type   = document.getElementById("type").value;
+        let region = document.getElementById("region").value;
+
+        if (name && type && region) {
+          alert(`Gym Added:\nName: ${name}\nType: ${type}\nRegion: ${region}`);
+          document.getElementById("gymForm").style.display = "none";
+        } else {
+          alert("Please fill in all fields.");
+        }
+      }
+    </script>
+</head>
+
+<body>
+    <header>
+        <h1>Gyms</h1>
+        <nav>
+          <ul>
+            <li><a href="/trainers">Trainers</a></li>
+            <li><a href="/pokemon">Pokemon</a></li>
+            <li><a href="/gyms">Gyms</a></li>
+            <li><a href="/regions">Regions</a></li>
+            <li><a href="/trainerGyms">TrainerGyms</a></li>
+          </ul>
+        </nav>
+    </header>
+    <main>
+        <p><strong>Browse Gyms</strong></p>
+
+        <button type="button" onclick="showForm()">Add New Gym</button>
+
+        <form id="gymForm">
+          <label for="name">Name:</label>
+          <input type="text" id="name" required><br><br>
+
+          <label for="type">Type:</label>
+          <input type="text" id="type" required><br><br>
+
+          <label for="region">Region Located:</label>
+            <select id="region" required>
+                <option value="">Select Region</option>
+                <option value="Kanto">Kanto</option>
+                <option value="Johto">Johto</option>
+                <option value="Hoenn">Hoenn</option>
+                <option value="Sinnoh">Sinnoh</option>
+                <option value="Unova">Unova</option>
+                <option value="Kalos">Kalos</option>
+                <option value="Alola">Alola</option>
+                <option value="Galar">Galar</option>
+                <option value="Paldea">Paldea</option>
+            </select><br><br>
+
+        <button type="button" onclick="submitGym()">Submit</button>
+        </form>
+
+        <table border="1" cellpadding="5">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Region</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+        <tbody>
+            {{!-- For each row, print the id, name, age, region_id, in order --}}
+            {{#each data}}
+            <tr>
+                <td>{{this.gym_name}}</td>
+                <td>{{this.type}}</td>
+                <td>{{this.region_name}}</td>
+
+                <td>
+                    <a href="/update_gym/{{this.trainer_id}}" class="table_button">Update</a>
+                    <a href="/delete_gym/{{this.trainer_id}}" class="table_button">Delete</a>
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+        </table>
+    </main>
+    <footer>
+        <p>&copy; 2025 Trainer Challenge Index. All rights reserved.</p>
+    </footer>
+    <!-- To link external javascript file -->
+    <script src="scripts.js"></script>
+</body>
+
+</html>
