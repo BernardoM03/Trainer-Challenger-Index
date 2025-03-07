@@ -1,0 +1,129 @@
+<!--
+    Project: Trainer Challenger Index
+    Authors: Bernardo Mendes and Gage Davelaar
+-->
+
+<!-- trainers.hbs -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Browse Trainer Records</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <header>
+    <h1>Trainers</h1>
+    <nav>
+      <ul>
+        <li><a href="/trainers">Trainers</a> - List of trainers on their journey. Be able to view their name, age, and
+          home region.</li>
+        <li><a href="/pokemon">Pokemon</a> - Various pokemon listed with their type, region they were found, and
+          registered trainer.</li>
+        <li><a href="/gyms">Gyms</a> - Gyms available for trainers to challenge, with their type, region and current
+          leader</li>
+        <li><a href="/regions">Regions</a> - The different regions available in the world</li>
+        <li><a href="/trainerGyms">TrainerGyms</a> - A record of successful gym challenges, holding the badge name, gym
+          it originates from, the trainer who earned it and the date they earned it.</li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <p><strong>Browse Trainers</strong></p>
+
+    <table id="trainer-table" border="1" cellpadding="5">
+      <thead>
+        <tr>
+          <th>Trainer ID</th>
+          <th>Trainer Name</th>
+          <th>Age</th>
+          <th>Home Region</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each data}}
+        <tr>
+          <td>{{this.trainer_id}}</td>
+          <td>{{this.trainer_name}}</td>
+          <td>{{this.age}}</td>
+          <td>{{this.region_name}}</td>
+          <td><a href="/delete_trainer/{{this.trainer_id}}" class="table_button">Delete</a></td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+
+    <div class="addUpdateButtons">
+      <button type="button" onclick="openUpdateModal()">Update a Trainer</button>
+      <button type="button" onclick="openAddModal()">Add New Trainer</button>
+    </div>
+
+    <div id="update-trainer-modal" class="modal" style="display:none;">
+      <div class="modal-content">
+        <span class="close" onclick="closeUpdateModal()">&times;</span>
+        <h2>Update Trainer</h2>
+        <form id="update-trainer-form">
+          <label for="choose-trainer-name">Trainer: </label>
+          <select name="choose-trainer-name" id="mySelectTrainer">
+            <option value="test">Select a Trainer</option>
+            {{#each data}}
+            <option value="{{this.trainer_id}}">{{this.trainer_name}}</option>
+            {{/each}}
+          </select><br><br>
+
+          <label for="input-name">Name:</label>
+          <input type="text" id="input-update-name" required><br><br>
+
+          <label for="input-age">Age:</label>
+          <input type="number" id="input-update-age"><br><br>
+
+          <label for="input-region">Home Region:</label>
+          <select name="input-region" id="input-update-region">
+            <option value="">Select a Region</option>
+            {{#each regions}}
+            <option value="{{this.region_id}}">{{this.name}}</option>
+            {{/each}}
+          </select><br><br>
+
+          <input type="submit" onclick="closeUpdateModal()">
+        </form>
+      </div>
+    </div>
+
+    <div id="add-trainer-modal" class="modal" style="display:none;">
+      <div class="modal-content">
+        <span class="close" onclick="closeAddModal()">&times;</span>
+        <h2>Add Trainer</h2>
+        <form id="add-trainer-form">
+          <label for="input-name">Name:</label>
+          <input type="text" id="input-name" required><br><br>
+
+          <label for="input-age">Age:</label>
+          <input type="number" id="input-age"><br><br>
+
+          <label for="input-region">Home Region:</label>
+          <select name="input-region" id="input-region">
+            <option value="">Select a Region</option>
+            {{#each regions}}
+            <option value="{{this.region_id}}">{{this.name}}</option>
+            {{/each}}
+          </select><br><br>
+
+          <input type="submit" onclick="closeAddModal()">
+        </form>
+      </div>
+    </div>
+
+  </main>
+  <!-- To link external javascript file -->
+  <script src="/js/update_trainer.js"></script>
+  <script src="/js/add_trainer.js"></script>
+  <script src="/js/trainerfuncs.js"></script>
+</body>
+
+</html>
