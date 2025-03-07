@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pokemon</title>
+
+  <!-- To link external styling file -->
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <header>
+    <h1>Pokemon</h1>
+    <nav>
+      <ul>
+        <li><a href="/trainers">Trainers</a> - List of trainers on their journey. Be able to view their name, age, and
+          home region.</li>
+        <li><a href="/pokemon">Pokemon</a> - Various pokemon listed with their type, region they were found, and
+          registered trainer.</li>
+        <li><a href="/gyms">Gyms</a> - Gyms available for trainers to challenge, with their type, region and current
+          leader</li>
+        <li><a href="/regions">Regions</a> - The different regions available in the world</li>
+        <li><a href="/trainerGyms">TrainerGyms</a> - A record of successful gym challenges, holding the badge name, gym
+          it originates from, the trainer who earned it and the date they earned it.</li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <p><strong>Browse Pokemon</strong></p>
+    <table id="pokemon-table" border="1" cellpadding="5">
+      <thead>
+        <tr>
+          <th>Pokemon ID</th>
+          <th>Pokemon Name</th>
+          <th>Type</th>
+          <th>Region Found</th>
+          <th>Trainer</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{!-- For each row, print the id, name, age, region_id, in order --}}
+        {{#each data}}
+        <tr>
+          <td>{{this.pokemon_id}}</td>
+          <td>{{this.pokemon_name}}</td>
+          <td>{{this.type}}</td>
+          <td>{{this.region_name}}</td>
+          <td>{{this.trainer_name}}</td>
+          <td><a href="/delete_pokemon/{{this.trainer_id}}" class="table_button">Delete</a></td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+
+    <div class="addUpdateButtons">
+      <button type="button" onclick="openUpdateModal()">Update a Pokemon</button>
+      <button type="button" onclick="openAddModal()">Add New Pokemon</button>
+    </div>
+
+    <div id="update-pokemon-modal" class="modal" style="display:none;">
+      <div class="modal-content">
+        <span class="close" onclick="closeUpdateModal()">&times;</span>
+        <h2>Update Pokemon</h2>
+        <form id="update-pokemon-form">
+          <label for="choose-pokemon-name">Pokemon: </label>
+          <select name="choose-pokemon-name" id="mySelectPokemon">
+            <option value="test">Select a Pokemon</option>
+            {{#each data}}
+            <option value="{{this.pokemon_id}}">{{this.pokemon_name}}</option>
+            {{/each}}
+          </select><br><br>
+
+          <label for="name">Name:</label>
+          <input type="text" id="name" required><br><br>
+
+          <label for="type">Type:</label>
+          <input type="text" id="type" required><br><br>
+
+          <label for="region">Region Located:</label>
+          <select name="input-region" id="input-update-region">
+            <option value="">Select a Region</option>
+            {{#each regions}}
+            <option value="{{this.region_id}}">{{this.name}}</option>
+            {{/each}}
+          </select><br><br>
+          <input type="submit" onclick="closeUpdateModal()">
+        </form>
+      </div>
+    </div>
+
+    <div id="add-pokemon-modal" class="modal" style="display:none;">
+      <div class="modal-content">
+        <span class="close" onclick="closeAddModal()">&times;</span>
+        <h2>Add Pokemon</h2>
+        <form id="add-pokemon-form">
+          <label for="pokemon-name">Name:</label>
+          <input type="text" id="pokemon-name" required><br><br>
+
+          <label for="pokemon-type">Type:</label>
+          <input type="text" id="pokemon-type" required><br><br>
+
+          <label for="pokemon-region">Home Region:</label>
+          <select name="input-region" id="pokemon-region">
+            <option value="">Select a Region</option>
+            {{#each regions}}
+            <option value="{{this.region_id}}">{{this.name}}</option>
+            {{/each}}
+          </select><br><br>
+
+          <label for="trainer">Trainer:</label>
+          <select name="input-trainer" id="pokemon-trainer">
+            <option value="">Select a Trainer</option>
+            {{#each trainers}}
+            <option value="{{this.trainer_id}}">{{this.name}}</option>
+            {{/each}}
+          </select><br><br>
+          <input type="submit" onclick="closeAddModal()">
+        </form>
+      </div>
+    </div>
+
+  </main>
+  <!-- To link external javascript file -->
+  <script src="/js/add_pokemon.js"></script>
+  <script src="/js/pokemonfuncs.js"></script>
+</body>
+
+</html>

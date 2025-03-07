@@ -1,0 +1,101 @@
+<!--
+    Project: Trainer Challenger Index
+    Authors: Bernardo Mendes and Gage Davelaar
+-->
+
+<!-- regions.hbs -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Regions</title>
+
+  <link rel="stylesheet" href="/css/style.css">
+
+</head>
+
+<body>
+  <header>
+    <h1>Regions</h1>
+    <nav>
+      <ul>
+        <li><a href="/trainers">Trainers</a> - List of trainers on their journey. Be able to view their name, age, and
+          home region.</li>
+        <li><a href="/pokemon">Pokemon</a> - Various pokemon listed with their type, region they were found, and
+          registered trainer.</li>
+        <li><a href="/gyms">Gyms</a> - Gyms available for trainers to challenge, with their type, region and current
+          leader</li>
+        <li><a href="/regions">Regions</a> - The different regions available in the world</li>
+        <li><a href="/trainerGyms">TrainerGyms</a> - A record of successful gym challenges, holding the badge name, gym
+          it originates from, the trainer who earned it and the date they earned it.</li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <p><strong>Browse Trainers</strong></p>
+    <table id="region-table" border="1" cellpadding="5">
+      <thead>
+        <tr>
+          <th>Region ID</th>
+          <th>Region Name</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each data}}
+        <tr>
+          <td>{{this.region_id}}</td>
+          <td>{{this.name}}</td>
+          <td><a href="/delete_regions/{{this.region_id}}" class="table_button">Delete</a></td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+    <div class="addUpdateButtons">
+      <button type="button" onclick="openUpdateModal()">Update a Region</button>
+      <button type="button" onclick="openAddModal()">Add New Region</button>
+    </div>
+
+    <div id="update-region-modal" class="modal" style="display:none;">
+      <div class="modal-content">
+        <span class="close" onclick="closeUpdateModal()">&times;</span>
+        <h2>Update Region</h2>
+        <form id="regionForm">
+          <label for="choose-region">Region: </label>
+          <select name="choose-region" id="mySelectRegion">
+            <option value="test">Select a Region</option>
+            {{#each data}}
+            <option value="{{this.region_id}}">{{this.name}}</option>
+            {{/each}}
+          </select><br><br>
+
+          <label for="name">Name:</label>
+          <input type="text" id="name" required><br><br>
+
+          <input type="submit" onclick="closeUpdateModal()">
+        </form>
+      </div>
+    </div>
+
+    <div id="add-region-modal" class="modal" style="display:none;">
+      <div class="modal-content">
+        <span class="close" onclick="closeAddModal()">&times;</span>
+        <h2>Add Region</h2>
+        <form id="add-region-form">
+          <label for="region_name">Name:</label>
+          <input type="text" id="region-name" required><br><br>
+
+          <input type="submit" onclick="closeAddModal()">
+        </form>
+      </div>
+    </div>
+  </main>
+  <!-- To link external javascript file -->
+  <script src="js/regionfuncs.js"></script>
+  <script src="js/add_region.js"></script>"
+</body>
+
+</html>
