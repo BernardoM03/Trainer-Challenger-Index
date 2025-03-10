@@ -236,6 +236,14 @@ app.post('/add-trainergym', function (req, res) {
     });
 });
 
+app.get('/delete_trainerGyms/:id', function (req, res) {
+    const gymId = req.params.id;
+    let query = "DELETE FROM TrainerGyms WHERE trainer_id = ?";
+    db.pool.query(query, [trainer_id], function (error, results) {
+        res.redirect('/trainerGyms');
+    })
+});
+
 
 /*
     LISTENER
