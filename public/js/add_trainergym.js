@@ -52,25 +52,35 @@ addRowToTable = (data) => {
     let newRow = parsedData[parsedData.length - 1];
 
     let row = document.createElement("TR");
-    let nameCell = document.createElement("TD");
-    let gymCell = document.createElement("TD");
-    let trainerCell = document.createElement("TD");
+    let trainerIdCell = document.createElement("TD");
+    let gymIdCell = document.createElement("TD");
+    let trainernameCell = document.createElement("TD");
+    let badgenameCell = document.createElement("TD");
     let dateCell = document.createElement("TD");
     let deleteCell = document.createElement("TD");
 
-    nameCell.innerText = newRow.pokemon_name;
-    gymCell.innerText = newRow.type;
-    trainerCell.innerText = newRow.trainer_name;
-    dateCell.innerText = newRow.region_name;
-    deleteCell.innerHTML = '<a href="/delete_trainer/{{this.trainer_id}}" class="table_button">Delete</a>';
+    let dateEarned = new Date(newRow.date_earned).toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "numeric"
+    });
 
+    trainerIdCell.innerText = newRow.trainer_id;
+    gymIdCell.innerText = newRow.gym_id;
+    trainernameCell.innerText = newRow.trainer_name;
+    badgenameCell.innerText = newRow.badge_name;
+    dateCell.innerText = dateEarned;
+    deleteCell.innerHTML = '<a href="/delete_trainerGym/{{this.trainer_id}}/{{this.gym_id}}" class="table_button">Delete</a>';
 
-    row.appendChild(nameCell);
-    row.appendChild(gymCell);
-    row.appendChild(trainerCell)
+    row.appendChild(trainerIdCell);
+    row.appendChild(gymIdCell);
+    row.appendChild(trainernameCell);
+    row.appendChild(badgenameCell);
     row.appendChild(dateCell);
     row.appendChild(deleteCell);
 
     currentTable.appendChild(row);
     console.log("Response Data:", data); // Log the raw response data
+
+    location.reload()
 }
