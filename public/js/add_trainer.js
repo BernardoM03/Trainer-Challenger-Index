@@ -45,17 +45,20 @@ addRowToTable = (data) => {
     let newRow = parsedData[parsedData.length - 1];
 
     let row = document.createElement("TR");
+    let idCell = document.createElement("TD");
     let nameCell = document.createElement("TD");
     let ageCell = document.createElement("TD");
     let regionCell = document.createElement("TD");
     let deleteCell = document.createElement("TD");
 
+    idCell.innerText = newRow.trainer_id;
     nameCell.innerText = newRow.trainer_name;
     ageCell.innerText = newRow.age;
     regionCell.innerText = newRow.region_name;
     deleteCell.innerHTML = '<a href="/delete_trainer/{{this.trainer_id}}" class="table_button">Delete</a>';
 
 
+    row.appendChild(idCell);
     row.appendChild(nameCell);
     row.appendChild(ageCell);
     row.appendChild(regionCell);
@@ -63,4 +66,6 @@ addRowToTable = (data) => {
 
     currentTable.appendChild(row);
     console.log("Response Data:", data); // Log the raw response data
+
+    location.reload()
 }

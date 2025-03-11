@@ -5,27 +5,19 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,  initial-scale=1.0">
   <title>TrainerGyms</title>
-
-  <!-- To link external styling file -->
   <link rel="stylesheet" href="/css/style.css">
-
+  <link href="https://fonts.cdnfonts.com/css/pokemon-solid" rel="stylesheet">
 </head>
 
 <body>
-  <header>
-    <h1>Trainer Gym Record</h1>
-    <nav>
-      <ul>
-        <li><a href="/trainers">Trainers</a> - List of trainers on their journey. Be able to view their name, age, and
-          home region.</li>
-        <li><a href="/pokemon">Pokemon</a> - Various pokemon listed with their type, region they were found, and
-          registered trainer.</li>
-        <li><a href="/gyms">Gyms</a> - Gyms available for trainers to challenge, with their type, region and current
-          leader</li>
-        <li><a href="/regions">Regions</a> - The different regions available in the world</li>
-        <li><a href="/trainerGyms">TrainerGyms</a> - A record of successful gym challenges, holding the badge name, gym
-          it originates from, the trainer who earned it and the date they earned it.</li>
-      </ul>
+  <header class="header-bar">
+    <h1 class="header-title">Badges</h1>
+    <nav class="header-nav">
+        <a href="/trainers" class="header-link">Trainers</a>
+        <a href="/pokemon" class="header-link">Pokemon</a>
+        <a href="/gyms" class="header-link">Gyms</a>
+        <a href="/regions" class="header-link">Regions</a>
+        <a href="/trainerGyms" class="header-link">TrainerGyms</a>
     </nav>
   </header>
   <main>
@@ -33,6 +25,8 @@
     <table id="trainergym-table" border="1" cellpadding="5">
       <thead>
         <tr>
+          <th>Trainer ID</th>
+          <th>Gym ID</th>
           <th>Trainer Name</th>
           <th>Badge Name</th>
           <th>Date Earned</th>
@@ -42,10 +36,12 @@
         {{!-- For each row, print the id, name, age, region_id, in order --}}
         {{#each data}}
         <tr>
+          <td>{{this.trainer_id}}</td>
+          <td>{{this.gym_id}}</td>
           <td>{{this.trainer_name}}</td>
           <td>{{this.badge_name}}</td>
-          <td>{{this.date_earned}}</td>
-          <td><a href="/delete_trainerGym/{{this.trainer_id}}" class="table_button">Delete</a></td>
+          <td>{{formatDate this.date_earned}}</td>
+          <td><a href="/delete_trainerGym/{{this.trainer_id}}/{{this.gym_id}}" class="table_button">Delete</a></td>
         </tr>
         {{/each}}
       </tbody>

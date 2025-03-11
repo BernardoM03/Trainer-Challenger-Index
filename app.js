@@ -13,11 +13,24 @@ var app = express();
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(express.static('public'))
-PORT = 3453;
+PORT = 3455;
 var db = require('./database/db-connector')
 const { engine } = require('express-handlebars');
 var exphbs = require('express-handlebars');
 app.engine('.hbs', engine({ extname: ".hbs" }));
+app.engine('.hbs', engine({
+    extname: ".hbs",
+    helpers: {
+        formatDate: function (date) {
+            if (!date) return "N/A";
+            return new Date(date).toLocaleDateString("en-US", {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+            });
+        }
+    }
+}));
 app.set('view engine', '.hbs');
 /*
     ROUTES
@@ -145,6 +158,28 @@ app.get('/gyms', function (req, res) {
     })
 });
 
+app.post('/add-gym', function (req, res) {
+    let data = req.body;
+    console.log(data);
+    
+    let region = parseInt(data.region);
+    if (isNaN(region)) { region = null; } 
+
+    let query1 = `INSERT INTO Gyms (name, type, region_id) VALUES (?, ?, ?)`;
+    db.pool.query(query1, [data.name, data.type, region], function (error, results) {
+
+        let query2 = `SELECT Gyms.gym_id, Gyms.name AS gym_name, Gyms.type, Regions.name AS region_name
+                      FROM Gyms
+                      LEFT JOIN Regions ON Gyms.region_id = Regions.region_id
+                      WHERE Gyms.gym_id = ?`;
+
+        db.pool.query(query2, [results.insertId], function (error, rows) {
+            res.send(rows);
+        });
+    });
+});
+
+
 app.get('/delete_gyms/:id', function (req, res) {
     const gymId = req.params.id;
     let query = "DELETE FROM Gyms WHERE gym_id = ?";
@@ -182,7 +217,7 @@ app.get('/delete_regions/:id', function(req, res) {
 });
 
 app.get('/trainerGyms', function (req, res) {
-    let query1 = `SELECT Trainers.name AS trainer_name, TrainerGyms.badge_name, TrainerGyms.date_earned
+    let query1 = `SELECT Trainers.name AS trainer_name, TrainerGyms.badge_name, TrainerGyms.date_earned, TrainerGyms.trainer_id, TrainerGyms.gym_id
                   FROM TrainerGyms
                   INNER JOIN Trainers ON TrainerGyms.trainer_id = Trainers.trainer_id;`;
     let query2 = "SELECT * FROM Gyms"
@@ -214,7 +249,7 @@ app.post('/add-trainergym', function (req, res) {
         console.log("Inserted TrainerGym record successfully");
 
         let query2 = `
-            SELECT Trainers.name AS trainer_name, TrainerGyms.badge_name, TrainerGyms.date_earned
+            SELECT Trainers.name AS trainer_name, TrainerGyms.badge_name, TrainerGyms.date_earned, TrainerGyms.trainer_id, TrainerGyms.gym_id
             FROM TrainerGyms
             INNER JOIN Trainers ON TrainerGyms.trainer_id = Trainers.trainer_id
             WHERE TrainerGyms.trainer_id = ? AND TrainerGyms.gym_id = ?;`;
@@ -233,6 +268,17 @@ app.post('/add-trainergym', function (req, res) {
             console.log("Retrieved inserted record successfully:", rows);
             res.send(rows);
         });
+    });
+});
+
+app.get('/delete_trainerGym/:trainer_id/:gym_id', function(req, res) {
+    const trainerId = req.params.trainer_id;
+    const gymId = req.params.gym_id;
+
+    let query = "DELETE FROM TrainerGyms WHERE trainer_id = ? AND gym_id = ?";
+    
+    db.pool.query(query, [trainerId, gymId], function(error, results) {
+        res.redirect('/trainerGyms');
     });
 });
 

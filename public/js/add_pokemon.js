@@ -50,19 +50,21 @@ addRowToTable = (data) => {
     let newRow = parsedData[parsedData.length - 1];
 
     let row = document.createElement("TR");
+    let idCell = document.createElement("TD");
     let nameCell = document.createElement("TD");
     let typeCell = document.createElement("TD");
     let regionCell = document.createElement("TD");
     let trainerCell = document.createElement("TD");
     let deleteCell = document.createElement("TD");
 
+    idCell.innerText = newRow.pokemon_id
     nameCell.innerText = newRow.pokemon_name;
     typeCell.innerText = newRow.type;
     regionCell.innerText = newRow.region_name;
     trainerCell.innerText = newRow.trainer_name;
-    deleteCell.innerHTML = '<a href="/delete_trainer/{{this.trainer_id}}" class="table_button">Delete</a>';
+    deleteCell.innerHTML = '<a href="/delete_pokemon/{{this.pokemon_id}}" class="table_button">Delete</a>';
 
-
+    row.appendChild(idCell);
     row.appendChild(nameCell);
     row.appendChild(typeCell);
     row.appendChild(regionCell);
@@ -71,4 +73,6 @@ addRowToTable = (data) => {
 
     currentTable.appendChild(row);
     console.log("Response Data:", data); // Log the raw response data
+
+    location.reload()
 }

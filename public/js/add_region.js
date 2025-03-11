@@ -54,4 +54,6 @@ addRowToTable = (data) => {
 
     currentTable.appendChild(row);
     console.log("Response Data:", data); // Log the raw response data
+
+    location.reload()
 }

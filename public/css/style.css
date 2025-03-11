@@ -1,4 +1,42 @@
 /* CSS Document */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+}
+
+.header-bar {
+    display: flex;
+    background-color: red;
+    width: 100vw;
+    height: 80px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-title {
+    font-family: 'Pokemon Solid', sans-serif;
+    color: white;
+    margin-left: 20px;
+    font-size: 2.5em;
+    letter-spacing: 2px;
+    -webkit-text-stroke: 2px black;
+}
+
+.header-link {
+    font-style: none;
+    padding-top: 30px;
+    color: white;
+    margin-right: 30px;
+    font-size: 1.5em;
+}
+
+.header-link:hover {
+    cursor: pointer;
+    font-size: 1.625em;
+}
+
+
 button {
     display: inline-block;
     padding: 10px 20px;
