@@ -18,7 +18,7 @@
 
 <body>
   <header class="header-bar">
-    <h1 class="header-title">Regions</h1>
+    <h1 class="header-title">Trainer Challenger Index - Regions</h1>
     <nav class="header-nav">
         <a href="/trainers" class="header-link">Trainers</a>
         <a href="/pokemon" class="header-link">Pokemon</a>
@@ -28,8 +28,8 @@
     </nav>
   </header>
   <main>
-    <p><strong>Browse Trainers</strong></p>
-    <table id="region-table" border="1" cellpadding="5">
+    <p class="entity-header"><strong>Browse Regions</strong></p>
+    <table class="entity-table" id="regions-table" border="1" cellpadding="5">
       <thead>
         <tr>
           <th>Region ID</th>
@@ -56,7 +56,7 @@
       <div class="modal-content">
         <span class="close" onclick="closeUpdateModal()">&times;</span>
         <h2>Update Region</h2>
-        <form id="regionForm">
+        <form id="update-region-form">
           <label for="choose-region">Region: </label>
           <select name="choose-region" id="mySelectRegion">
             <option value="test">Select a Region</option>
@@ -65,8 +65,8 @@
             {{/each}}
           </select><br><br>
 
-          <label for="name">Name:</label>
-          <input type="text" id="name" required><br><br>
+          <label for="update-region-name">Name:</label>
+          <input type="text" id="update-region-name" required><br><br>
 
           <input type="submit" onclick="closeUpdateModal()">
         </form>
@@ -88,7 +88,11 @@
   </main>
   <!-- To link external javascript file -->
   <script src="js/regionfuncs.js"></script>
-  <script src="js/add_region.js"></script>"
+  <script src="js/add_regions.js"></script>"
+  <script src="js/update_regions.js"></script>
+  <footer>
+    <p>&copy; 2025 Trainer Challenge Index. All rights reserved.</p>
+  </footer>
 </body>
 
 </html>

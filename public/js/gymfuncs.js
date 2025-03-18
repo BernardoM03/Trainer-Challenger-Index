@@ -1,3 +1,8 @@
+/*
+    Project: Trainer Challenger Index
+    Authors: Bernardo Mendes and Gage Davelaar
+*/
+
 function openAddModal() {
     document.getElementById("add-gym-modal").style.display = "block";
 }

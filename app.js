@@ -45,10 +45,8 @@ app.get('/trainers', function (req, res) {
     let query2 = "SELECT * FROM Regions;"
     db.pool.query(query1, function (error, rows, fields) {
         let trainers = rows;
-        //console.log("Fetched trainers:", trainers)
         db.pool.query(query2, function (error, rows, fields) {
             let regions = rows;
-            //console.log("Fetched regions:", regions); // DEBUGGING LINE
             res.render('trainers', { data: trainers, regions: regions });
         })
     })
@@ -71,7 +69,7 @@ app.post('/add-trainer', function (req, res) {
     });
 });
 
-app.put('/update-trainer', function (req, res, next) {
+app.put('/update-trainers', function (req, res, next) {
     let data = req.body;
     console.log("fetched data:", data)
 
@@ -97,6 +95,47 @@ app.get('/delete_trainer/:id', function (req, res) {
     })
 });
 
+app.get('/regions', function (req, res) {
+    let query1 = `SELECT region_id, name FROM Regions;`;
+    db.pool.query(query1, function (error, rows, fields) {
+        res.render('regions', { data: rows });
+    })
+});
+
+app.post('/add-regions', function (req, res) {
+    let data = req.body;
+    console.log(data);
+
+    let query1 = `INSERT INTO Regions (name) VALUES (?)`;
+    db.pool.query(query1, [data.name], function (error, results) {
+        let query2 = `SELECT region_id, name FROM Regions WHERE region_id = ?;`;
+        db.pool.query(query2, [results.insertId], function (error, rows) {
+            res.send(rows);
+        });
+    });
+});
+
+app.put('/update-regions', function (req, res, next) {
+    let data = req.body;
+    console.log("fetched data:", data)
+
+    let query1 = "UPDATE Regions SET name = ? WHERE region_id = ?";
+    db.pool.query(query1, [data.name, data.region_id], function (error, results) {
+        let query2 = "SELECT region_id, name FROM Regions WHERE region_id = ?;";
+        db.pool.query(query2, [data.region_id], function (error, rows) {
+            res.send(rows);
+        });
+    });
+});
+
+app.get('/delete_regions/:id', function(req, res) {
+    const regionId = req.params.id;
+    let query = "DELETE FROM Regions WHERE region_id = ?";
+    db.pool.query(query, [regionId], function(error, results) {
+        res.redirect('/regions');
+    })
+});
+
 app.get('/pokemon', function (req, res) {
     let query1 = `SELECT Pokemon.pokemon_id, Pokemon.name AS pokemon_name, Pokemon.type, Trainers.name AS trainer_name, Regions.name AS region_name
                   FROM Pokemon
@@ -110,7 +149,6 @@ app.get('/pokemon', function (req, res) {
             let regions = rows;
             db.pool.query(query3, function (error, rows, fields) {
                 let trainers = rows;
-                console.log("Fetched Trainers:", trainers); // Debug log
                 res.render('pokemon', { data: pokemon, regions: regions, trainers: trainers });
             })
         })
@@ -131,6 +169,26 @@ app.post('/add-pokemon', function (req, res) {
                   INNER JOIN Regions ON Pokemon.region_id = Regions.region_id
                   WHERE Pokemon.pokemon_id = ?;`;
         db.pool.query(query2, [results.insertId], function (error, rows) {
+            res.send(rows);
+        });
+    });
+});
+
+app.put('/update-pokemon', function (req, res, next) {
+    let data = req.body;
+    console.log("fetched data:", data)
+
+    let region = parseInt(data.region);
+    if (isNaN(region)) { region = 'NULL'; }
+
+    let query1 = "UPDATE Pokemon SET name = ?, type = ?, region_id = ?, trainer_id = ? WHERE pokemon_id = ?";
+    db.pool.query(query1, [data.name, data.type, region, data.trainer, data.pokemon_id], function (error, results) {
+        let query2 = `SELECT Pokemon.pokemon_id, Pokemon.name AS pokemon_name, Pokemon.type, Trainers.name AS trainer_name, Regions.name AS region_name
+                  FROM Pokemon
+                  INNER JOIN Trainers ON Pokemon.trainer_id = Trainers.trainer_id
+                  INNER JOIN Regions ON Pokemon.region_id = Regions.region_id
+                  WHERE Pokemon.pokemon_id = ?;`;
+        db.pool.query(query2, [data.pokemon_id], function (error, rows) {
             res.send(rows);
         });
     });
@@ -179,40 +237,30 @@ app.post('/add-gym', function (req, res) {
     });
 });
 
+app.put('/update-gyms', function (req, res, next) {
+    let data = req.body;
+    console.log("fetched data:", data)
+
+    let region = parseInt(data.region);
+    if (isNaN(region)) { region = 'NULL'; }
+
+    let query1 = "UPDATE Gyms SET name = ?, type = ?, region_id = ? WHERE gym_id = ?";
+    db.pool.query(query1, [data.name, data.type, region, data.gym_id], function (error, results) {
+        let query2 = `SELECT Gyms.gym_id, Gyms.name AS gym_name, Gyms.type, Regions.name AS region_name
+                      FROM Gyms
+                      LEFT JOIN Regions ON Gyms.region_id = Regions.region_id
+                      WHERE Gyms.gym_id = ?`;
+        db.pool.query(query2, [data.gym_id], function (error, rows) {
+            res.send(rows);
+        });
+    });
+});
 
 app.get('/delete_gyms/:id', function (req, res) {
     const gymId = req.params.id;
     let query = "DELETE FROM Gyms WHERE gym_id = ?";
     db.pool.query(query, [gymId], function (error, results) {
         res.redirect('/gyms');
-    })
-});
-
-app.get('/regions', function (req, res) {
-    let query1 = `SELECT region_id, name FROM Regions;`;
-    db.pool.query(query1, function (error, rows, fields) {
-        res.render('regions', { data: rows });
-    })
-});
-
-app.post('/add-regions', function (req, res) {
-    let data = req.body;
-    console.log(data);
-
-    let query1 = `INSERT INTO Regions (name) VALUES (?)`;
-    db.pool.query(query1, [data.name], function (error, results) {
-        let query2 = `SELECT region_id, name FROM Regions WHERE region_id = ?;`;
-        db.pool.query(query2, [results.insertId], function (error, rows) {
-            res.send(rows);
-        });
-    });
-});
-
-app.get('/delete_regions/:id', function(req, res) {
-    const regionId = req.params.id;
-    let query = "DELETE FROM Regions WHERE region_id = ?";
-    db.pool.query(query, [regionId], function(error, results) {
-        res.redirect('/regions');
     })
 });
 
@@ -241,12 +289,6 @@ app.post('/add-trainergym', function (req, res) {
     let query1 = `INSERT INTO TrainerGyms (trainer_id, gym_id, badge_name, date_earned) VALUES (?, ?, ?, ?);`;
     
     db.pool.query(query1, [data.trainer, data.gym, data.name, data.date], function (error, results) {
-        if (error) {
-            console.error("Error inserting into TrainerGyms:", error);
-            return res.status(500).send({ error: "Database insert error" });
-        }
-
-        console.log("Inserted TrainerGym record successfully");
 
         let query2 = `
             SELECT Trainers.name AS trainer_name, TrainerGyms.badge_name, TrainerGyms.date_earned, TrainerGyms.trainer_id, TrainerGyms.gym_id
@@ -255,17 +297,24 @@ app.post('/add-trainergym', function (req, res) {
             WHERE TrainerGyms.trainer_id = ? AND TrainerGyms.gym_id = ?;`;
 
         db.pool.query(query2, [data.trainer, data.gym], function (error, rows) {
-            if (error) {
-                console.error("Error retrieving inserted record:", error);
-                return res.status(500).send({ error: "Database select error" });
-            }
+            res.send(rows);
+        });
+    });
+});
 
-            if (rows.length === 0) {
-                console.warn("No records found for trainer_id:", data.trainer, "gym_id:", data.gym);
-                return res.status(404).send({ error: "No matching records found" });
-            }
+app.put('/update-trainergyms', function (req, res, next) {
+    let data = req.body;
+    console.log("fetched data:", data)
 
-            console.log("Retrieved inserted record successfully:", rows);
+    let query1 = "UPDATE TrainerGyms SET badge_name = ?, gym_id = ?, trainer_id = ?, date_earned = ? WHERE gym_id = ? AND trainer_id = ?";
+    db.pool.query(query1, [data.badge_name, data.gym_id, data.trainer_id, data.date, data.gym, data.trainer], function (error, results) {
+        //console.log("Query Params - Trainer ID:", data.trainer, "Gym ID:", data.gym);
+        let query2 = `
+            SELECT Trainers.name AS trainer_name, TrainerGyms.badge_name, TrainerGyms.date_earned, TrainerGyms.trainer_id, TrainerGyms.gym_id
+            FROM TrainerGyms
+            INNER JOIN Trainers ON TrainerGyms.trainer_id = Trainers.trainer_id
+            WHERE TrainerGyms.trainer_id = ? AND TrainerGyms.gym_id = ?;`;
+        db.pool.query(query2, [data.trainer, data.gym], function (error, rows) {
             res.send(rows);
         });
     });

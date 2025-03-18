@@ -5,9 +5,6 @@
 
 <!-- trainers.hbs -->
 
-<!DOCTYPE html>
-<html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,7 +15,7 @@
 
 <body>
   <header class="header-bar">
-    <h1 class="header-title">Trainers</h1>
+    <h1 class="header-title">Trainer Challenger Index - Trainers</h1>
     <nav class="header-nav">
         <a href="/trainers" class="header-link">Trainers</a>
         <a href="/pokemon" class="header-link">Pokemon</a>
@@ -28,9 +25,9 @@
     </nav>
   </header>
   <main>
-    <p><strong>Browse Trainers</strong></p>
+    <p class="entity-header"><strong>Browse Trainers</strong></p>
 
-    <table id="trainer-table" border="1" cellpadding="5">
+    <table class="entity-table" id="trainers-table" border="1" cellpadding="5">
       <thead>
         <tr>
           <th>Trainer ID</th>
@@ -116,9 +113,11 @@
 
   </main>
   <!-- To link external javascript file -->
-  <script src="/js/update_trainer.js"></script>
-  <script src="/js/add_trainer.js"></script>
+  <script src="/js/update_trainers.js"></script>
+  <script src="/js/add_trainers.js"></script>
   <script src="/js/trainerfuncs.js"></script>
-</body>
 
-</html>
+  <footer>
+    <p>&copy; 2025 Trainer Challenge Index. All rights reserved.</p>
+</footer>
+</body>

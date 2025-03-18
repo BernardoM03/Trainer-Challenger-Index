@@ -1,3 +1,8 @@
+<!--
+    Project: Trainer Challenger Index
+    Authors: Bernardo Mendes and Gage Davelaar
+-->
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,7 +16,7 @@
 
 <body>
   <header class="header-bar">
-    <h1 class="header-title">Gyms</h1>
+    <h1 class="header-title">Trainer Challenger Index - Gyms</h1>
     <nav class="header-nav">
         <a href="/trainers" class="header-link">Trainers</a>
         <a href="/pokemon" class="header-link">Pokemon</a>
@@ -21,9 +26,9 @@
     </nav>
   </header>
   <main>
-    <p><strong>Browse Gyms</strong></p>
+    <p class="entity-header"><strong>Browse Gyms</strong></p>
 
-    <table id="gym-table" border="1" cellpadding="5">
+    <table class="entity-table" id="gyms-table" border="1" cellpadding="5">
       <thead>
         <tr>
           <th>Gym ID</th>
@@ -56,22 +61,22 @@
         <span class="close" onclick="closeUpdateModal()">&times;</span>
         <h2>Update Gym</h2>
         <form id="update-gym-form">
-          <label for="choose-gym-name">Trainer: </label>
-          <select name="choose-gym-name" id="mySelectGym">
+          <label for="choose-gym">Trainer: </label>
+          <select name="choose-gym" id="mySelectGym">
             <option value="test">Select a Gym</option>
             {{#each data}}
             <option value="{{this.gym_id}}">{{this.gym_name}}</option>
             {{/each}}
           </select><br><br>
 
-          <label for="name">Name:</label>
-          <input type="text" id="name" required><br><br>
+          <label for="update-gym-name">Name:</label>
+          <input type="text" id="update-gym-name" required><br><br>
 
-          <label for="type">Type:</label>
-          <input type="text" id="type" required><br><br>
+          <label for="update-gym-type">Type:</label>
+          <input type="text" id="update-gym-type" required><br><br>
 
-          <label for="region">Region Located:</label>
-          <select name="input-region" id="input-update-region">
+          <label for="update-gym-region">Region Located:</label>
+          <select name="input-region" id="update-gym-region">
             <option value="">Select a Region</option>
             {{#each regions}}
             <option value="{{this.region_id}}">{{this.name}}</option>
@@ -108,7 +113,12 @@
   </main>
   <!-- To link external javascript file -->
   <script src="/js/gymfuncs.js"></script>
-  <script src="/js/add_gym.js"></script>
+  <script src="/js/add_gyms.js"></script>
+  <script src="/js/update_gyms.js"></script>
+
+  <footer>
+    <p>&copy; 2025 Trainer Challenge Index. All rights reserved.</p>
+  </footer>
 </body>
 
 </html>

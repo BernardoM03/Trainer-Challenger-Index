@@ -1,3 +1,8 @@
+/*
+    Project: Trainer Challenger Index
+    Authors: Bernardo Mendes and Gage Davelaar
+*/
+
 let addRegionForm = document.getElementById("add-region-form");
 
 addRegionForm.addEventListener("submit", (e) => {
@@ -32,7 +37,7 @@ addRegionForm.addEventListener("submit", (e) => {
 })
 
 addRowToTable = (data) => {
-    let currentTable = document.getElementById("region-table");
+    let currentTable = document.getElementById("regions-table");
 
     let newRowIndex = currentTable.rows.length;
     let parsedData = JSON.parse(data);

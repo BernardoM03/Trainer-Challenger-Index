@@ -1,7 +1,6 @@
-/*CS 340 Porject Group 33
-* Pokemon TCI Data Manipulation Queries
-* Bernardo Mendes
-* Gage Davelaar
+/*
+    Project: Trainer Challenger Index
+    Authors: Bernardo Mendes and Gage Davelaar
 */
 
 -- SELECT QUERIES --

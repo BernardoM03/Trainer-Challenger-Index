@@ -1,3 +1,8 @@
+<!--
+    Project: Trainer Challenger Index
+    Authors: Bernardo Mendes and Gage Davelaar
+-->
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,7 +16,7 @@
 
 <body>
   <header class="header-bar">
-    <h1 class="header-title">Badges</h1>
+    <h1 class="header-title">Trainer Challenger Index - Badges</h1>
     <nav class="header-nav">
         <a href="/trainers" class="header-link">Trainers</a>
         <a href="/pokemon" class="header-link">Pokemon</a>
@@ -21,8 +26,8 @@
     </nav>
   </header>
   <main>
-    <p><strong>Browse Trainer Gym Badge Records</strong></p>
-    <table id="trainergym-table" border="1" cellpadding="5">
+    <p class="entity-header"><strong>Browse Trainer Gym Badge Records</strong></p>
+    <table class="entity-table" id="trainergyms-table" border="1" cellpadding="5">
       <thead>
         <tr>
           <th>Trainer ID</th>
@@ -30,6 +35,7 @@
           <th>Trainer Name</th>
           <th>Badge Name</th>
           <th>Date Earned</th>
+          <th>Actions</th>
         </tr>
       </thead>
       <tbody>
@@ -55,26 +61,39 @@
     <div id="update-trainergym-modal" class="modal" style="display:none;">
       <div class="modal-content">
         <span class="close" onclick="closeUpdateModal()">&times;</span>
-        <h2>Update Gym</h2>
+        <h2>Update Badge</h2>
         <form id="update-trainergym-form">
-          <label for="choose-gym-name">TrainerGym: </label>
-          <select name="choose-gym-name" id="mySelectTrainergym">
+          <label for="choose-trainergym">TrainerGym: </label>
+          <select name="choose-trainergym" id="mySelectTrainergym">
             <option value="test">Select a TrainerGym</option>
             {{#each data}}
-            <option value="{{this.gym_id}}">{{this.gym_name}}</option>
+            <option value="{{this.trainer_id}}-{{this.gym_id}}">
+              {{this.trainer_name}} - {{this.badge_name}}
+            </option>
             {{/each}}
           </select><br><br>
 
-          <label for="trainer">Trainer:</label>
-          <select name="input-trainer" id="input-update-trainer">
+          <label for="update-trainergym-badgename">Badge Name:</label>
+          <input type="text" id="update-trainergym-badgename" required><br><br>
+
+          <label for="update-trainergym-gym">Gym:</label>
+          <select name="choose-gym-name" id="update-trainergym-gym">
+            <option value="test">Select a Gym</option>
+            {{#each gyms}}
+            <option value="{{this.gym_id}}">{{this.name}}</option>
+            {{/each}}
+          </select><br><br>
+
+          <label for="update-trainergym-trainer">Trainer:</label>
+          <select name="update-trainergym-trainer" id="update-trainergym-trainer">
             <option value="">Select a Trainer</option>
             {{#each trainers}}
             <option value="{{this.trainer_id}}">{{this.name}}</option>
             {{/each}}
           </select><br><br>
 
-          <label for="date">Date Earned:</label>
-          <input type="date" id="date" required><br><br>
+          <label for="update-trainergym-date">Date Earned:</label>
+          <input type="date" id="update-trainergym-date" required><br><br>
 
           <input type="submit" onclick="closeUpdateModal()">
         </form>
@@ -118,7 +137,13 @@
   </main>
   <!-- To link external javascript file -->
   <script src="/js/trainergymfuncs.js"></script>
-  <script src="/js/add_trainergym.js"></script>
+  <script src="/js/add_trainergyms.js"></script>
+  <script src="/js/update_trainergyms.js"></script>
+
+  <footer>
+    <p>&copy; 2025 Trainer Challenge Index. All rights reserved.</p>
+  </footer>
+
 </body>
 
 </html>

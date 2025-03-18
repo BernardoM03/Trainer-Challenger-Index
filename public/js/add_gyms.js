@@ -1,3 +1,8 @@
+/*
+    Project: Trainer Challenger Index
+    Authors: Bernardo Mendes and Gage Davelaar
+*/
+
 let addGymForm = document.getElementById("add-gym-form");
 
 addGymForm.addEventListener("submit", (e) => {
@@ -39,7 +44,7 @@ addGymForm.addEventListener("submit", (e) => {
 })
 
 addRowToTable = (data) => {
-    let currentTable = document.getElementById("gym-table");
+    let currentTable = document.getElementById("gyms-table");
 
     let newRowIndex = currentTable.rows.length;
     let parsedData = JSON.parse(data);

@@ -1,3 +1,8 @@
+/*
+    Project: Trainer Challenger Index
+    Authors: Bernardo Mendes and Gage Davelaar
+*/
+
 let addPokemonForm = document.getElementById("add-pokemon-form");
 
 addPokemonForm.addEventListener("submit", (e) => {

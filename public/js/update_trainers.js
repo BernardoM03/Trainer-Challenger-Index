@@ -1,3 +1,8 @@
+/*
+    Project: Trainer Challenger Index
+    Authors: Bernardo Mendes and Gage Davelaar
+*/
+
 let updateTrainerForm = document.getElementById('update-trainer-form');
 
 updateTrainerForm.addEventListener("submit", function (e) {
@@ -14,15 +19,8 @@ updateTrainerForm.addEventListener("submit", function (e) {
     let inputAgeVal = inputAge.value;
     let inputRegionVal = inputRegion.value;
 
-    console.log("Input Values:", {
-        trainer_id: updateTrainerVal,
-        name: inputNameVal,
-        age: inputAgeVal,
-        region: inputRegionVal
-    });
-
     let inputData = {
-        trainer_id: updateTrainerVal, // Add trainer_id here
+        trainer_id: updateTrainerVal,
         name: inputNameVal,
         age: inputAgeVal,
         region: inputRegionVal
@@ -30,7 +28,7 @@ updateTrainerForm.addEventListener("submit", function (e) {
 
     // Setup our AJAX request
     var xhttp = new XMLHttpRequest();
-    xhttp.open("PUT", "/update-trainer", true);
+    xhttp.open("PUT", "/update-trainers", true);
     xhttp.setRequestHeader("Content-type", "application/json");
 
     // Tell our AJAX request how to resolve
@@ -53,7 +51,7 @@ updateTrainerForm.addEventListener("submit", function (e) {
 function updateRow(data, trainerID) {
     let parsedData = JSON.parse(data);
     //console.log(parsedData[0].trainer_name);
-    let table = document.getElementById("trainer-table");
+    let table = document.getElementById("trainers-table");
 
     for (let i = 1; i < table.rows.length; i++) {
         let row = table.rows[i];

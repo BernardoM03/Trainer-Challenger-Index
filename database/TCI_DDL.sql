@@ -28,8 +28,14 @@ CREATE TABLE Regions (
 
 INSERT INTO Regions (name) VALUES
 ('Kanto'),
+('Johto'),
+('Hoenn'),
 ('Sinnoh'),
-('Kalos');
+('Unova'),
+('Kalos'),
+('Alola'),
+('Galar'),
+('Paldea');
 
 -- --------------------------------------------------------
 
